@@ -1,5 +1,8 @@
+import { globalStyles } from "@/styles/reset";
 import type { AppProps } from "next/app";
 import { Open_Sans } from "next/font/google";
+
+globalStyles();
 
 const open_sans = Open_Sans({
   weight: ["400", "500", "700"],

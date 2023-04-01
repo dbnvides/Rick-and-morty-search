@@ -1,11 +1,27 @@
 import Head from "next/head";
 import { IHomeProps } from "../interfaces/characters/characters.interface";
-import Link from "next/link";
 import { GetStaticProps } from "next";
 import { api } from "@/services/api";
 import Card from "@/components/CardCharacter";
+import Header from "@/components/Header";
+import Container from "@/components/Container";
+import Navbar from "@/components/NavBar";
+import InputSearch from "@/components/InputFilter";
+import { useState } from "react";
+import { StyledMenu } from "@/components/MenuDropDown/styled";
+import { TitleSearch, Main, FilterTitleSearch } from "@/styles/globalStyle";
+import ListCards from "@/components/ListCards";
+import SectionMainCard from "@/components/MainSectionCards";
+import SectionMainFilters from "@/components/MainSectionFilters";
 
 export default function Home({ character }: IHomeProps) {
+  const [visivel, setVisible] = useState(false);
+  const [status, setStatus] = useState("Personagens");
+
+  const menuDropDown = () => {
+    setVisible((visivel) => !visivel);
+  };
+
   return (
     <>
       <Head>
@@ -14,22 +30,45 @@ export default function Home({ character }: IHomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <div>
-          <ul>
-            {character.map((char) => (
-              <Card
-                key={char.id}
-                id={char.id}
-                image={char.image}
-                location={char.location}
-                name={char.name}
-                status={char.status}
-              />
-            ))}
-          </ul>
-        </div>
-      </main>
+      <Header>
+        <Container>
+          <Navbar>
+            <img src="../logo.png" alt="logo" />
+            <button onClick={() => menuDropDown()}>{!visivel ? "Menu" : "Fechar"}</button>
+            {visivel && (
+              <StyledMenu>
+                <button onClick={() => setStatus("Personagens")}>Personagens</button>
+                <button onClick={() => setStatus("Episódios")}>Episódios</button>
+                <button onClick={() => setStatus("Locais")}>Locais</button>
+              </StyledMenu>
+            )}
+          </Navbar>
+        </Container>
+      </Header>
+      <Container>
+        <Main>
+          <SectionMainFilters>
+            <TitleSearch>{status}</TitleSearch>
+            <InputSearch />
+            <FilterTitleSearch>Filters</FilterTitleSearch>
+            <button>Limpar Filtro</button>
+          </SectionMainFilters>
+          <SectionMainCard>
+            <ListCards>
+              {character.map((char) => (
+                <Card
+                  key={char.id}
+                  id={char.id}
+                  image={char.image}
+                  location={char.location}
+                  name={char.name}
+                  status={char.status}
+                />
+              ))}
+            </ListCards>
+          </SectionMainCard>
+        </Main>
+      </Container>
     </>
   );
 }
