@@ -11,4 +11,8 @@ export const StyledInput = styled("input", {
   border: "2px solid $primaryColor",
   borderRadius: "4px",
   outline: "none",
+
+  "@tablet": {
+    width: "40%",
+  },
 });

@@ -3,13 +3,21 @@ export interface ICharacter {
   name: string;
   status: string;
   species: string;
-  type: string;
-  gender: string;
-  origin: IOrigin;
+  type?: string;
+  gender?: string;
+  origin?: IOrigin;
   location: ILocation;
   image: string;
-  episode: Array<string>;
-  url: string;
+  episode?: Array<string>;
+  url?: string;
+}
+
+export interface ICard {
+  id: number;
+  name: string;
+  location: ILocation;
+  image: string;
+  status: string;
 }
 
 export interface IOrigin {

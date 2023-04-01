@@ -1,26 +1,35 @@
 import Head from "next/head";
-import { IHomeProps } from "../interfaces/characters/characters.interface";
-import { GetStaticProps } from "next";
-import { api } from "@/services/api";
 import Card from "@/components/CardCharacter";
 import Header from "@/components/Header";
 import Container from "@/components/Container";
-import Navbar from "@/components/NavBar";
-import InputSearch from "@/components/InputFilter";
-import { useState } from "react";
-import { StyledMenu } from "@/components/MenuDropDown/styled";
-import { TitleSearch, Main, FilterTitleSearch } from "@/styles/globalStyle";
+import { useContext } from "react";
+import {
+  Main,
+  StyledPagination,
+  StyledNumberPage,
+  StyledNextPage,
+  StyledPreviousPage,
+} from "@/styles/globalStyle";
 import ListCards from "@/components/ListCards";
 import SectionMainCard from "@/components/MainSectionCards";
 import SectionMainFilters from "@/components/MainSectionFilters";
+import { characterContext } from "@/context/characterContext";
+import Link from "next/link";
 
-export default function Home({ character }: IHomeProps) {
-  const [visivel, setVisible] = useState(false);
-  const [status, setStatus] = useState("Personagens");
-
-  const menuDropDown = () => {
-    setVisible((visivel) => !visivel);
-  };
+export default function Home() {
+  const {
+    nextPage,
+    character,
+    information,
+    menuDropDown,
+    visivel,
+    setPage,
+    setSearch,
+    setStatus,
+    status,
+    previousPage,
+    page,
+  } = useContext(characterContext);
 
   return (
     <>
@@ -31,31 +40,16 @@ export default function Home({ character }: IHomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header>
-        <Container>
-          <Navbar>
-            <img src="../logo.png" alt="logo" />
-            <button onClick={() => menuDropDown()}>{!visivel ? "Menu" : "Fechar"}</button>
-            {visivel && (
-              <StyledMenu>
-                <button onClick={() => setStatus("Personagens")}>Personagens</button>
-                <button onClick={() => setStatus("Episódios")}>Episódios</button>
-                <button onClick={() => setStatus("Locais")}>Locais</button>
-              </StyledMenu>
-            )}
-          </Navbar>
-        </Container>
+        <Link href={"https://github.com/dbnvides/Rick-and-morty-search"} target="blank">
+          Respostório
+        </Link>
       </Header>
       <Container>
         <Main>
-          <SectionMainFilters>
-            <TitleSearch>{status}</TitleSearch>
-            <InputSearch />
-            <FilterTitleSearch>Filters</FilterTitleSearch>
-            <button>Limpar Filtro</button>
-          </SectionMainFilters>
+          <SectionMainFilters />
           <SectionMainCard>
             <ListCards>
-              {character.map((char) => (
+              {character.map((char: any) => (
                 <Card
                   key={char.id}
                   id={char.id}
@@ -66,24 +60,20 @@ export default function Home({ character }: IHomeProps) {
                 />
               ))}
             </ListCards>
+            <StyledPagination>
+              {page > 1 && (
+                <StyledPreviousPage onClick={() => previousPage()}>
+                  Previous Page
+                </StyledPreviousPage>
+              )}
+              <StyledNumberPage>{page}</StyledNumberPage>
+              {information?.info.next && (
+                <StyledNextPage onClick={() => nextPage()}>Next page</StyledNextPage>
+              )}
+            </StyledPagination>
           </SectionMainCard>
         </Main>
       </Container>
     </>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  const { data: characters } = await api.get("character", {
-    params: {
-      limit: 826,
-      offset: 0,
-    },
-  });
-
-  return {
-    props: {
-      character: characters.results,
-    },
-  };
-};

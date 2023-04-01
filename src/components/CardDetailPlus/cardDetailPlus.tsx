@@ -1,9 +1,18 @@
+import { ICharacter } from "@/interfaces/characters/characters.interface";
 import Link from "next/link";
 import React from "react";
 import { Card, StyledDetail, StyledImage, StyledSpan } from "./styled";
-import { ICard } from "@/interfaces/characters/characters.interface";
 
-const CardCharacter = ({ id, name, location, image, status }: ICard) => {
+const CardDetailPlus = ({
+  id,
+  name,
+  location,
+  image,
+  status,
+  type,
+  gender,
+  origin,
+}: ICharacter) => {
   return (
     <Card key={id}>
       <Link href={`/character/${id}`}>
@@ -13,9 +22,20 @@ const CardCharacter = ({ id, name, location, image, status }: ICard) => {
 
         <StyledDetail>
           <h2>{name}</h2>
-
           <h3>
             <span>Location:</span> {location.name}
+          </h3>
+          <h3>
+            <span>Type: </span>
+            {type ? type : "None"}
+          </h3>
+          <h3>
+            <span>Gender: </span>
+            {gender}
+          </h3>
+          <h3>
+            <span>Origin: </span>
+            {origin?.name ? origin.name : "None"}
           </h3>
         </StyledDetail>
         {status == "Alive" ? (
@@ -30,4 +50,4 @@ const CardCharacter = ({ id, name, location, image, status }: ICard) => {
   );
 };
 
-export default CardCharacter;
+export default CardDetailPlus;

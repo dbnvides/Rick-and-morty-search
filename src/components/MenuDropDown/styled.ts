@@ -8,7 +8,7 @@ export const StyledMenu = styled("div", {
   width: "150px",
   position: "absolute",
   right: "0",
-  bottom: "-135px",
+  bottom: "-25px",
   zIndex: "10",
   gap: "15px",
   padding: "5px",
@@ -17,5 +17,24 @@ export const StyledMenu = styled("div", {
 
   button: {
     width: "120px",
+  },
+
+  a: {
+    width: "120px",
+    padding: "10px",
+    fontSize: "15px",
+    background: "White",
+    border: "1px solid $primaryColor",
+    color: "$primaryColor",
+    fontWeight: "600",
+    borderRadius: "4px",
+    transition: "ease 0.2s",
+    textAlign: "center",
+
+    "&:hover": {
+      background: "$primaryColor",
+      color: "White",
+      cursor: "pointer",
+    },
   },
 });

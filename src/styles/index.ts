@@ -1,6 +1,11 @@
 import { createStitches } from "@stitches/react";
 
-export const { styled, globalCss, getCssText } = createStitches({
+export const { styled, globalCss, getCssText, css } = createStitches({
+  media: {
+    tablet: "(min-width: 768px)",
+    desktop: "(min-width: 768px)",
+  },
+
   theme: {
     colors: {
       alive: "#9cffac",

@@ -2,18 +2,14 @@ import { styled } from "../../styles";
 
 export const Card = styled("li", {
   minWidth: "250px",
-  maxWidth: "250px",
-  height: "330px",
+  maxWidth: "300px",
+  height: "470px",
   background: "White",
   display: "flex",
   flexDirection: "column",
   borderRadius: "5px",
   border: "2px solid #02b1c8",
   position: "relative",
-
-  "@tablet": {
-    height: "315px",
-  },
 });
 
 export const StyledSpan = styled("span", {
@@ -52,7 +48,7 @@ export const StyledImage = styled("div", {
   padding: "2px",
 
   img: {
-    objectFit: "cover",
+    objectFit: "contain",
     objectPosition: "center",
     maxHeight: "100%",
     width: "100%",
@@ -63,10 +59,9 @@ export const StyledDetail = styled("div", {
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
+  height: "180px",
   maxHeight: "100%",
-  height: "110px",
   maxWidth: "100%",
-  whiteSpace: "nowrap",
 
   h2: {
     maxWidth: "90%",
@@ -78,17 +73,33 @@ export const StyledDetail = styled("div", {
   },
 
   h3: {
-    maxWidth: "80%",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
+    maxWidth: "100%",
     fontSize: "18px",
     marginBottom: "5px",
     marginLeft: "5px",
     fontWeight: "normal",
+
+    span: {
+      fontSize: "14px",
+      fontWeight: "bold",
+    },
   },
 
   span: {
     fontSize: "14px",
     fontWeight: "bold",
+  },
+});
+
+export const StyledMain = styled("main", {
+  minWidth: "100vw",
+  minHeight: "100vh",
+
+  section: {
+    minHeight: "80vh",
+    maxHeight: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

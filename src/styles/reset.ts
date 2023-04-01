@@ -30,6 +30,22 @@ export const globalStyles = globalCss({
       background: "$primaryColor",
       color: "White",
       cursor: "pointer",
+
+      a: {
+        color: "white",
+        "&:hover": {
+          color: "White",
+          cursor: "pointer",
+        },
+      },
+    },
+
+    a: {
+      textDecoration: "none",
+      "&:hover": {
+        color: "White",
+        cursor: "pointer",
+      },
     },
   },
 });
